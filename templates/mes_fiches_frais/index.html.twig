@@ -14,5 +14,9 @@
     <button type="submit">Valider</button>
     {{ form_end(form) }}
 
+    {% if selectedFiche is not null %}
+            <p>{{ selectedFiche.mois }}</p>
+    {% endif %}
+
 </div>
 {% endblock %}

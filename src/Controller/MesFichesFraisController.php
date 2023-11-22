@@ -19,12 +19,19 @@ class MesFichesFraisController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $mesFiches = $entityManager->getRepository(FicheFrais::class)->findBy(['user'=>$this->getUser()]);
         $form = $this->createForm(MonthSelectorFormType::class, $mesFiches);
+        $selectedFiche = null;
 
         $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $selectedFiche = $form->get('selectedMonth')->getData();
+        }
+
 
 
         return $this->render('mes_fiches_frais/index.html.twig', [
             'form' => $form->createView(),
+            'selectedFiche' => $selectedFiche
         ]);
     }
 }
