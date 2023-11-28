@@ -15,7 +15,46 @@
     {{ form_end(form) }}
 
     {% if selectedFiche is not null %}
-            <p>{{ selectedFiche.mois }}</p>
+        <br><p> Fiche de frais du mois : {{ selectedFiche.moisFormated | date('m-Y') }}  </p>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Libelle</th>
+                <th scope="col">Montant</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for uneLigneFHF in selectedFiche.ligneFraisHorsForfaits %}
+                <tr>
+                    <td>{{ uneLigneFHF.date | date('d-m-Y')}} </td>
+                    <td>{{ uneLigneFHF.libelle }}</td>
+                    <td>{{ uneLigneFHF.montant }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Libelle</th>
+                <th scope="col">Montant</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for uneLigneFHF in selectedFiche.ligneFraisHorsForfaits %}
+                <tr>
+                    <td>{{ uneLigneFHF.date | date('d-m-Y')}} </td>
+                    <td>{{ uneLigneFHF.libelle }}</td>
+                    <td>{{ uneLigneFHF.montant }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
     {% endif %}
 
 </div>

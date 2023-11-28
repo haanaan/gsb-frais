@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\FicheFraisRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -73,6 +74,11 @@ class FicheFrais
     public function getMois(): ?string
     {
         return $this->mois;
+    }
+
+    public function getMoisFormated(): ?\DateTimeImmutable
+    {
+        return DateTimeImmutable::createFromFormat('Ym', $this->getMois());
     }
 
     public function setMois(string $mois): self

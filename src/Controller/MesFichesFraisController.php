@@ -24,9 +24,9 @@ class MesFichesFraisController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
+            /** @var FicheFrais $selectedFiche */
             $selectedFiche = $form->get('selectedMonth')->getData();
         }
-
 
 
         return $this->render('mes_fiches_frais/index.html.twig', [
