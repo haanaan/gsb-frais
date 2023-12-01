@@ -17,25 +17,25 @@
     {% if selectedFiche is not null %}
         <br><p> Fiche de frais du mois : {{ selectedFiche.moisFormated | date('m-Y') }}  </p>
 
+        <br> <h2> Elements forfaitisés  </h2>
+
         <table class="table">
             <thead>
             <tr>
-                <th scope="col"></th>
-                <th scope="col">Libelle</th>
-                <th scope="col">Montant</th>
+                <th scope="col">Forfait Etape</th>
+                <th scope="col">Frais Kilométrique</th>
+                <th scope="col">Nuitée Hôtel</th>
+                <th scope="col">Repas Restaurant</th>
             </tr>
             </thead>
             <tbody>
-            {% for uneLigneFHF in selectedFiche.ligneFraisHorsForfaits %}
-                <tr>
-                    <td>{{ uneLigneFHF.date | date('d-m-Y')}} </td>
-                    <td>{{ uneLigneFHF.libelle }}</td>
-                    <td>{{ uneLigneFHF.montant }}</td>
-                </tr>
+            {% for uneLigneFF in selectedFiche.ligneFraisForfaits %}
+                    <td>{{ uneLigneFF.quantite }} </td>
             {% endfor %}
             </tbody>
         </table>
 
+        <br> <h2> Hors-forfait </h2>
         <table class="table">
             <thead>
             <tr>
@@ -47,7 +47,7 @@
             <tbody>
             {% for uneLigneFHF in selectedFiche.ligneFraisHorsForfaits %}
                 <tr>
-                    <td>{{ uneLigneFHF.date | date('d-m-Y')}} </td>
+                    <td>{{ uneLigneFHF.date | date('d/m/Y')}} </td>
                     <td>{{ uneLigneFHF.libelle }}</td>
                     <td>{{ uneLigneFHF.montant }}</td>
                 </tr>
