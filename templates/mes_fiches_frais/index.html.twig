@@ -16,6 +16,7 @@
 
     {% if selectedFiche is not null %}
         <br><p> Fiche de frais du mois : {{ selectedFiche.moisFormated | date('m-Y') }}  </p>
+        <p> Etat de la fiche : {{ selectedFiche.etat.libelle }} </p>
 
         <br> <h2> Elements forfaitisés  </h2>
 
