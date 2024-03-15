@@ -35,7 +35,7 @@ class SaisirFicheFraisController extends AbstractController
             $etatCreation = $entityManager->getRepository(Etat::class)->find(2);
             $ficheFrais->setEtat($etatCreation);
 
-            // création ligne frais forfaits étapes
+            // création ligne frais forfaits étape
             $etape = $entityManager->getRepository(FraisForfait::class)->find(1);
             $lignesFraisForfait = new LigneFraisForfait();
             $lignesFraisForfait->setFraisforfait($etape);
@@ -96,8 +96,9 @@ class SaisirFicheFraisController extends AbstractController
 
                 $entityManager->persist($lignes);
                 $entityManager->flush();
+            }
 
-                return $this->redirectToRoute('app_etat_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_etat_index', [], Response::HTTP_SEE_OTHER);
         }
 
         $ligneFraisHorsForfait = new LigneFraisHorsForfait();
@@ -110,7 +111,6 @@ class SaisirFicheFraisController extends AbstractController
 
             return $this->redirectToRoute('app_etat_index', [], Response::HTTP_SEE_OTHER);
         }
-
 
         return $this->render('saisir_fiche_frais/index.html.twig', [
         'controller_name' => 'SaisirFicheFraisController',
