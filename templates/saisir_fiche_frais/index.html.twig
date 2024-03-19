@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello SaisirFicheFraisController!{% endblock %}
+{% block title %}Saisir Fiches Frais{% endblock %}
 
 {% block body %}
 <style>
@@ -9,12 +9,11 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>Renseigner ma fiche de frais du mois {{ ficheFrais.mois }}</h1>
+    {{ form_start(formFraisForfait) }}
+    {{ form_row(formFraisForfait) }}
+    {{ form_widget() }}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/ashrafi.hanan/apps/gsb-frais/src/Controller/SaisirFicheFraisController.php'|file_link(0) }}">src/Controller/SaisirFicheFraisController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/ashrafi.hanan/apps/gsb-frais/templates/saisir_fiche_frais/index.html.twig'|file_link(0) }}">templates/saisir_fiche_frais/index.html.twig</a></code></li>
-    </ul>
+    {{ form_end(formFraisForfait) }}
 </div>
 {% endblock %}
