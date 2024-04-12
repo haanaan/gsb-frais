@@ -41,6 +41,9 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                        {% if is_granted('ROLE_COMPTABLE') %}
+                                            <li><a class="dropdown-item" href="/comptable">Modifier les fiches</a></li>
+                                        {% endif %}
                                     <li><a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a></li>
                                     {% endif %}
                                     {% if not is_granted('IS_AUTHENTICATED_FULLY') %}

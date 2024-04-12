@@ -9,11 +9,77 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Renseigner ma fiche de frais du mois {{ ficheFrais.mois }}</h1>
-    {{ form_start(formFraisForfait) }}
-    {{ form_row(formFraisForfait) }}
-    {{ form_widget() }}
+    <h1>Renseigner ma fiche de frais du mois {{ ficheFrais.moisFormated | date('m-Y') }}</h1>
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Eléments forfaitisés</h5>
+            {{ form_start(formFraisForfait) }}
+            <div class="form-group">
+                {{ form_row(formFraisForfait.quantiteEtape) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(formFraisForfait.quantiteKm) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(formFraisForfait.quantiteNuit) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(formFraisForfait.quantiteRepas) }}
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">{{ button_label|default('Valider') }}</button>
+            <button type="reset" class="btn btn-secondary">{{ button_label|default('Annuler') }}</button>
+        </div>
+        {{ form_end(formFraisForfait) }}
+    </div>
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Descriptif des éléments hors forfait</h5>
+            {{ form_start(formFraisHorsForfait) }}
+            <div class="form-group">
+                {{ form_row(formFraisHorsForfait.libelle) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(formFraisHorsForfait.date) }}
+            </div>
+            <div class="form-group">
+                {{ form_row(formFraisHorsForfait.montant) }}
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">{{ button_label|default('Ajouter') }}</button>
+        </div>
+        {{ form_end(formFraisHorsForfait) }}
+    </div>
+    {% if ficheFrais.ligneFraisHorsForfaits.count != 0 %}
+        <div class="card">
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Libellé</th>
+                        <th>Date</th>
+                        <th>Montant</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for fraisHF in ficheFrais.ligneFraisHorsForfaits %}
+                        <tr>
+                            <td>{{ fraisHF.libelle }}</td>
+                            <td>{{ fraisHF.date|date('d/m/Y') }}</td>
+                            <td>{{ fraisHF.montant }} €</td>
+                            <td>
+                                {{ include('ligne_frais_hors_forfait/_delete_form.html.twig') }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endif %}
 
-    {{ form_end(formFraisForfait) }}
 </div>
 {% endblock %}
