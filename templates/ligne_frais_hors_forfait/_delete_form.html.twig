@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_ligne_frais_hors_forfait_delete', {'id': fraisHF.id}) }}" onsubmit="return confirm('Voulez vous effacer ces frais?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ fraisHF.id) }}">
+    <button class="btn">Supprimer</button>
+</form>

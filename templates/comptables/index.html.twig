@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Bienvenue {{ app.user.prenom }}</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit" class="btn btn-primary">Valider</button>
+    {{ form_end(form) }}
+
+    {% for fiche in ficheFrais %}
+        <br><p> Fiche de frais du mois : {{ fiche.moisFormated | date('m-Y') }}  </p>
+        <p> Etat de la fiche : {{ fiche.etat.libelle }} </p>
+
+        <br> <h2> Elements forfaitisés  </h2>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Forfait Etape</th>
+                <th scope="col">Frais Kilométrique</th>
+                <th scope="col">Nuitée Hôtel</th>
+                <th scope="col">Repas Restaurant</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for uneLigneFF in fiche.ligneFraisForfaits %}
+                <td>{{ uneLigneFF.quantite }} </td>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <br> <h2> Hors-forfait </h2>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Libelle</th>
+                <th scope="col">Montant</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for uneLigneFHF in fiche.ligneFraisHorsForfaits %}
+                <tr>
+                    <td>{{ uneLigneFHF.date | date('d/m/Y')}} </td>
+                    <td>{{ uneLigneFHF.libelle }}</td>
+                    <td>{{ uneLigneFHF.montant }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% endfor %}
+
+
+</div>
+{% endblock %}
