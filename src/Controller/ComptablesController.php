@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Etat;
 use App\Entity\FicheFrais;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
@@ -17,13 +18,11 @@ class ComptablesController extends AbstractController
     public function index(EntityManagerInterface $entityManager, Request $request): Response
     {
         $users = $entityManager->getRepository(User::class)->findAll();
-        // Créez un tableau pour le champ de sélection
         $choices = [];
         foreach ($users as $user) {
             $choices[$user->getNom()] = $user->getId();
         }
 
-        // Créez le formulaire de sélection d'utilisateur
         $form = $this->createFormBuilder()
             ->add('user', ChoiceType::class, [
                 'choices' => $choices,

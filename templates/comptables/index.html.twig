@@ -16,49 +16,29 @@
     <button type="submit" class="btn btn-primary">Valider</button>
     {{ form_end(form) }}
 
-    {% for fiche in ficheFrais %}
-        <br><p> Fiche de frais du mois : {{ fiche.moisFormated | date('m-Y') }}  </p>
-        <p> Etat de la fiche : {{ fiche.etat.libelle }} </p>
-
-        <br> <h2> Elements forfaitisés  </h2>
-
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">Forfait Etape</th>
-                <th scope="col">Frais Kilométrique</th>
-                <th scope="col">Nuitée Hôtel</th>
-                <th scope="col">Repas Restaurant</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for uneLigneFF in fiche.ligneFraisForfaits %}
-                <td>{{ uneLigneFF.quantite }} </td>
-            {% endfor %}
-            </tbody>
-        </table>
-
-        <br> <h2> Hors-forfait </h2>
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">Date</th>
-                <th scope="col">Libelle</th>
-                <th scope="col">Montant</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for uneLigneFHF in fiche.ligneFraisHorsForfaits %}
+    <div class="card">
+        <div class="card-body">
+            <table class="table">
+                <thead>
                 <tr>
-                    <td>{{ uneLigneFHF.date | date('d/m/Y')}} </td>
-                    <td>{{ uneLigneFHF.libelle }}</td>
-                    <td>{{ uneLigneFHF.montant }}</td>
+                    <th>Mois</th>
+                    <th>Etat</th>
+                    <th>Consulter la fiche</th>
+                    <th></th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    {% endfor %}
-
+                </thead>
+                <tbody>
+                {% for fiche in ficheFrais %}
+                    <tr>
+                        <td>{{ fiche.moisFormated | date('m-Y') }} </td>
+                        <td>{{ fiche.etat.libelle }}</td>
+                        <td><a href="{{ path('app_fiche_frais', {'id': fiche.id}) }}"><button class="btn btn-primary">Consulter</button></a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
 
 </div>
 {% endblock %}

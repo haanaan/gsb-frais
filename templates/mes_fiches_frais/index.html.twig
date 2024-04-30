@@ -9,14 +9,27 @@
 </style>
 
 <div class="example-wrapper">
+    {% if form is defined %}
     {{ form_start(form) }}
     {{ form_row(form.selectedMonth) }}
-    <button type="submit">Valider</button>
+    <button type="submit" class="btn btn-primary">Valider</button>
     {{ form_end(form) }}
+    {% endif %}
 
     {% if selectedFiche is not null %}
         <br><p> Fiche de frais du mois : {{ selectedFiche.moisFormated | date('m-Y') }}  </p>
-        <p> Etat de la fiche : {{ selectedFiche.etat.libelle }} </p>
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            {% if not is_granted('ROLE_COMPTABLE') %}
+                <p> Etat de la fiche : {{ selectedFiche.etat.libelle }} </p>
+            {% endif %}
+            {% if is_granted('ROLE_COMPTABLE') %}
+                {{ form_start(etatForms[selectedFiche.id]) }}
+                {{ form_widget(etatForms[selectedFiche.id]) }}
+                <button type="submit" class="btn btn-primary">Valider</button>
+                {{ form_end(etatForms[selectedFiche.id]) }}
+            {% endif %}
+        {% endif %}
+
 
         <br> <h2> Elements forfaitisés  </h2>
 
