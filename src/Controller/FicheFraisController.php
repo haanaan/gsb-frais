@@ -17,7 +17,11 @@ class FicheFraisController extends AbstractController
     #[Route('/fichefrais/{id}', name: 'app_fiche_frais')]
     public function index(FicheFrais $ficheFrais, Request $request, EntityManagerInterface $entityManager): Response
     {
-        $mesFiches = $entityManager->getRepository(FicheFrais::class)->findBy(['user'=>$this->getUser()]);
+        if ($this->isGranted('ROLE_COMPTABLE')) {
+            $mesFiches = $entityManager->getRepository(FicheFrais::class)->findAll();
+        } else {
+            $mesFiches = $entityManager->getRepository(FicheFrais::class)->findBy(['user'=>$this->getUser()]);
+        }
 
         $etatForms = [];
         foreach ($mesFiches as $fiche) {

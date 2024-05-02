@@ -18,7 +18,11 @@ class MesFichesFraisController extends AbstractController
     public function selectedMonth(Request $request, EntityManagerInterface $entityManager): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        $mesFiches = $entityManager->getRepository(FicheFrais::class)->findBy(['user'=>$this->getUser()]);
+        if ($this->isGranted('ROLE_COMPTABLE')) {
+            $mesFiches = $entityManager->getRepository(FicheFrais::class)->findAll();
+        } else {
+            $mesFiches = $entityManager->getRepository(FicheFrais::class)->findBy(['user'=>$this->getUser()]);
+        }
 
         $form = $this->createForm(MonthSelectorFormType::class, $mesFiches);
         $selectedFiche = null;
